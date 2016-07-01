@@ -36,6 +36,8 @@ public class ArtistsListActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(
+                new DividerItemDecoration(this, R.drawable.divider));
 
         showProgress();
         getSupportLoaderManager().initLoader(
