@@ -6,23 +6,21 @@ import android.support.v4.content.AsyncTaskLoader;
 import com.school.uioptimizationsample.communication.Api;
 import com.school.uioptimizationsample.model.Artist;
 
-import java.util.Collection;
-
 /**
  * Created by i-sergeev on 01.07.16
  */
-public class ArtistsLoader extends AsyncTaskLoader<Collection<Artist>>
+public class ArtistsLoader extends AsyncTaskLoader<Artist[]>
 {
     private final Api api;
 
     public ArtistsLoader(Context context)
     {
         super(context);
-        api = new Api();
+        api = new Api(context);
     }
 
     @Override
-    public Collection<Artist> loadInBackground()
+    public Artist[] loadInBackground()
     {
         return api.getArtists();
     }

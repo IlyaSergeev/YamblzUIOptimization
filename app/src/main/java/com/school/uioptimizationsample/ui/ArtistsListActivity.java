@@ -4,27 +4,28 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.school.uioptimizationsample.R;
 import com.school.uioptimizationsample.model.Artist;
-
-import java.util.Collection;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ArtistsListActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<Collection<Artist>>
+        implements LoaderManager.LoaderCallbacks<Artist[]>
 {
     private static final int ARTISTS_LOADER_ID = 101;
 
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
-    @BindView(R.id.get_info_button)
-    View getInfoButton;
+    @BindView(R.id.artists_recycler_view)
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,24 +35,29 @@ public class ArtistsListActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         showProgress();
-        getSupportLoaderManager().initLoader(ARTISTS_LOADER_ID, null, this);
+        getSupportLoaderManager().initLoader(
+                ARTISTS_LOADER_ID,
+                null,
+                this).forceLoad();
     }
 
     @Override
-    public Loader<Collection<Artist>> onCreateLoader(int id, Bundle args)
+    public Loader<Artist[]> onCreateLoader(int id, Bundle args)
     {
         return new ArtistsLoader(this);
     }
 
     @Override
-    public void onLoadFinished(Loader<Collection<Artist>> loader, Collection<Artist> data)
+    public void onLoadFinished(Loader<Artist[]> loader, Artist[] data)
     {
         showContent(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<Collection<Artist>> loader)
+    public void onLoaderReset(Loader<Artist[]> loader)
     {
 
     }
@@ -59,14 +65,18 @@ public class ArtistsListActivity extends AppCompatActivity
     private void showProgress()
     {
         progressBar.setVisibility(View.VISIBLE);
-        getInfoButton.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
     }
 
-    private void showContent(Collection<Artist> data)
+    private void showContent(Artist[] data)
     {
         progressBar.setVisibility(View.GONE);
-        getInfoButton.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
 
-        //TODO set data
+        ArtistsAdapter adapter = new ArtistsAdapter(data,
+                                                    Picasso.with(this),
+                                                    getResources());
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }
