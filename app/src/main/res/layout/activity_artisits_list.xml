@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@null"
     tools:context=".ui.ArtistsListActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/artists_recycler_view"
         android:layout_width="match_parent"
+        android:background="@null"
         android:layout_height="match_parent"/>
 
     <ProgressBar

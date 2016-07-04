@@ -1,11 +1,9 @@
 package com.school.uioptimizationsample.ui;
 
+import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +14,6 @@ import android.widget.TextView;
 import com.school.uioptimizationsample.R;
 import com.school.uioptimizationsample.model.Artist;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,17 +32,19 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
     @NonNull
     private final Resources resources;
 
+    private final CardPosterTransformation posterTransformation;
+
     public ArtistsAdapter(@Nullable Artist[] artists,
-                          @NonNull Picasso picasso,
-                          @NonNull Resources resources)
+                          @NonNull Context context)
     {
-        this.picasso = picasso;
-        this.resources = resources;
+        this.picasso = Picasso.with(context);
+        this.resources = context.getResources();
         if (artists == null)
         {
             artists = new Artist[0];
         }
         this.artists = artists;
+        posterTransformation = new CardPosterTransformation(context);
     }
 
     @Override
@@ -95,7 +92,10 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
 
         public void bind(@NonNull Artist artist)
         {
-            picasso.load(artist.getCover().getBigImageUrl()).into(posterImageView);
+            picasso.load(artist.getCover().getBigImageUrl())
+                   .placeholder(R.drawable.poster_placeholder)
+                   .transform(posterTransformation)
+                   .into(posterImageView);
             nameTextView.setText(artist.getName());
             descriptionTextView.setText(artist.getDescription());
             albumsTextView.setText(resources.getQuantityString(R.plurals.artistAlbums,

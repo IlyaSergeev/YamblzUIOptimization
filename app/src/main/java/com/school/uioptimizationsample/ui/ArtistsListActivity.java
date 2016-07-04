@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 
 import com.school.uioptimizationsample.R;
 import com.school.uioptimizationsample.model.Artist;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +31,7 @@ public class ArtistsListActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artisits_list);
+        getWindow().setBackgroundDrawable(null);
 
         ButterKnife.bind(this);
 
@@ -76,8 +76,7 @@ public class ArtistsListActivity extends AppCompatActivity
         recyclerView.setVisibility(View.VISIBLE);
 
         ArtistsAdapter adapter = new ArtistsAdapter(data,
-                                                    Picasso.with(this),
-                                                    getResources());
+                                                    this);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
