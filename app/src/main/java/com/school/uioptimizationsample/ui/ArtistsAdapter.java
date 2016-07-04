@@ -33,6 +33,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
     private final Resources resources;
 
     private final CardPosterTransformation posterTransformation;
+    private final int posterHeight;
 
     public ArtistsAdapter(@Nullable Artist[] artists,
                           @NonNull Context context)
@@ -44,7 +45,8 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
             artists = new Artist[0];
         }
         this.artists = artists;
-        posterTransformation = new CardPosterTransformation(context);
+        this.posterTransformation = new CardPosterTransformation(context);
+        this.posterHeight = context.getResources().getDimensionPixelSize(R.dimen.poster_height);
     }
 
     @Override
@@ -94,6 +96,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
         {
             picasso.load(artist.getCover().getBigImageUrl())
                    .placeholder(R.drawable.poster_placeholder)
+                   .resize(0, posterHeight)
                    .transform(posterTransformation)
                    .into(posterImageView);
             nameTextView.setText(artist.getName());
