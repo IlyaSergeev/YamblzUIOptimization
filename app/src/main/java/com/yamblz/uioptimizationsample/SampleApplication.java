@@ -1,4 +1,4 @@
-package com.school.uioptimizationsample;
+package com.yamblz.uioptimizationsample;
 
 import android.app.Application;
 import android.content.Context;

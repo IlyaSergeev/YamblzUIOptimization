@@ -1,4 +1,4 @@
-package com.school.uioptimizationsample;
+package com.yamblz.uioptimizationsample;
 
 import org.junit.Test;
 

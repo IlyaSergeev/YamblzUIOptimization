@@ -1,10 +1,10 @@
-package com.school.uioptimizationsample.ui;
+package com.yamblz.uioptimizationsample.ui;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.school.uioptimizationsample.communication.Api;
-import com.school.uioptimizationsample.model.Artist;
+import com.yamblz.uioptimizationsample.communication.Api;
+import com.yamblz.uioptimizationsample.model.Artist;
 
 /**
  * Created by i-sergeev on 01.07.16

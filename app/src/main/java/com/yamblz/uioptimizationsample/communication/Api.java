@@ -1,11 +1,11 @@
-package com.school.uioptimizationsample.communication;
+package com.yamblz.uioptimizationsample.communication;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
-import com.school.uioptimizationsample.R;
-import com.school.uioptimizationsample.model.Artist;
+import com.yamblz.uioptimizationsample.R;
+import com.yamblz.uioptimizationsample.model.Artist;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

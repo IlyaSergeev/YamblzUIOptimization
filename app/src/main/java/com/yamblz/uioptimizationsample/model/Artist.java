@@ -1,4 +1,4 @@
-package com.school.uioptimizationsample.model;
+package com.yamblz.uioptimizationsample.model;
 
 import com.google.gson.annotations.SerializedName;
 

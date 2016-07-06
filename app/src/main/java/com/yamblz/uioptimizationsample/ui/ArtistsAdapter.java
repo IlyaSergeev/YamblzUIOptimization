@@ -1,4 +1,4 @@
-package com.school.uioptimizationsample.ui;
+package com.yamblz.uioptimizationsample.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.school.uioptimizationsample.R;
-import com.school.uioptimizationsample.model.Artist;
+import com.yamblz.uioptimizationsample.R;
+import com.yamblz.uioptimizationsample.model.Artist;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

@@ -1,4 +1,4 @@
-package com.school.uioptimizationsample.ui;
+package com.yamblz.uioptimizationsample.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -9,8 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.school.uioptimizationsample.R;
-import com.school.uioptimizationsample.model.Artist;
+import com.yamblz.uioptimizationsample.R;
+import com.yamblz.uioptimizationsample.model.Artist;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

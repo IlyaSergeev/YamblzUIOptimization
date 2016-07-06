@@ -1,4 +1,4 @@
-package com.school.uioptimizationsample.ui;
+package com.yamblz.uioptimizationsample.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -8,7 +8,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.LayerDrawable;
 import android.support.annotation.NonNull;
 
-import com.school.uioptimizationsample.R;
+import com.yamblz.uioptimizationsample.R;
 import com.squareup.picasso.Transformation;
 
 /**
