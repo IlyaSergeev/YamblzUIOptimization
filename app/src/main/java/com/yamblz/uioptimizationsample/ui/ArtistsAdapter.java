@@ -1,6 +1,12 @@
 package com.yamblz.uioptimizationsample.ui;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.yamblz.uioptimizationsample.R;
 import com.yamblz.uioptimizationsample.model.Artist;
 
@@ -89,7 +96,31 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
 
         public void bind(@NonNull Artist artist)
         {
-            picasso.load(artist.getCover().getBigImageUrl()).into(posterImageView);
+            picasso.load(artist.getCover().getBigImageUrl())
+                    .transform(new Transformation() {
+                        @Override
+                        public Bitmap transform(Bitmap source) {
+                            Bitmap copy = source.copy(source.getConfig(), true);
+                            Canvas canvas = new Canvas(copy);
+
+                            int top = copy.getHeight() / 2;
+                            int bottom = copy.getHeight();
+
+                            LinearGradient gradient = new LinearGradient(0, bottom, 0, top,
+                                    Color.BLACK, Color.TRANSPARENT, Shader.TileMode.CLAMP);
+                            Paint paint = new Paint();
+                            paint.setShader(gradient);
+                            canvas.drawRect(0, top, copy.getWidth(), bottom, paint);
+                            source.recycle();
+                            return copy;
+                        }
+
+                        @Override
+                        public String key() {
+                            return "gradient";
+                        }
+                    })
+                    .into(posterImageView);
             nameTextView.setText(artist.getName());
             descriptionTextView.setText(artist.getDescription());
             albumsTextView.setText(resources.getQuantityString(R.plurals.artistAlbums,
