@@ -97,6 +97,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
         public void bind(@NonNull Artist artist)
         {
             picasso.load(artist.getCover().getBigImageUrl())
+                    .placeholder(R.drawable.window_background)
                     .transform(new Transformation() {
                         @Override
                         public Bitmap transform(Bitmap source) {

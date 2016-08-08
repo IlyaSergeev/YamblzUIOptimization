@@ -32,8 +32,7 @@ public class ArtistsListActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artisits_list);
-        //getWindow().setBackgroundDrawable(null);
-        //getWindow().setBackgroundDrawableResource(R.drawable.window_background);
+        getWindow().setBackgroundDrawable(null);
 
         ButterKnife.bind(this);
 
