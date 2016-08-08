@@ -10,19 +10,23 @@ import android.graphics.Shader;
 import com.squareup.picasso.Transformation;
 
 public class GradientTransformation implements Transformation {
+
+    private Paint mPaint = new Paint();
+    private Canvas mCanvas = new Canvas();
+
     @Override
     public Bitmap transform(Bitmap source) {
-        int w = source.getWidth();
-        int h = source.getHeight();
+        final int w = source.getWidth();
+        final int h = source.getHeight();
         Bitmap transformedBitmap = source.copy(source.getConfig(), true);
-        Canvas canvas = new Canvas(transformedBitmap);
+        mCanvas.setBitmap(transformedBitmap);
         LinearGradient linearGradient = new LinearGradient(w / 2, h / 2, w / 2, h, Color.TRANSPARENT,
                 Color.BLACK, Shader.TileMode.CLAMP);
-        Paint paint = new Paint(Paint.DITHER_FLAG);
-        paint.setDither(true);
-        paint.setFilterBitmap(true);
-        paint.setShader(linearGradient);
-        canvas.drawPaint(paint);
+        mPaint.reset();
+        mPaint.setDither(true);
+        mPaint.setFilterBitmap(true);
+        mPaint.setShader(linearGradient);
+        mCanvas.drawPaint(mPaint);
         source.recycle();
         return transformedBitmap;
     }
