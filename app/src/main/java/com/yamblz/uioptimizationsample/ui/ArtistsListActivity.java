@@ -9,9 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.squareup.picasso.Picasso;
 import com.yamblz.uioptimizationsample.R;
 import com.yamblz.uioptimizationsample.model.Artist;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,9 +32,11 @@ public class ArtistsListActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artisits_list);
-        getWindow().setBackgroundDrawableResource(R.drawable.window_background);
+        getWindow().setBackgroundDrawable(null);
 
         ButterKnife.bind(this);
+
+        recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(
