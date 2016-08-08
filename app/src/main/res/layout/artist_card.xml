@@ -14,16 +14,7 @@
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
-        android:src="@android:color/holo_red_dark"
         tools:ignore="ContentDescription"/>
-
-    <FrameLayout
-        android:layout_alignBottom="@id/artist_poster"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/fade_shadow"
-        android:paddingTop="16dp"/>
 
     <TextView
         android:layout_above="@+id/artist_albums"
