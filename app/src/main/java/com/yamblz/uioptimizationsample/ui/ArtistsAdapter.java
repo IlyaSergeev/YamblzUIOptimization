@@ -1,6 +1,14 @@
 package com.yamblz.uioptimizationsample.ui;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Picasso.LoadedFrom;
+import com.squareup.picasso.Target;
 import com.yamblz.uioptimizationsample.R;
 import com.yamblz.uioptimizationsample.model.Artist;
 
@@ -48,7 +58,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
     public ArtistVH onCreateViewHolder(ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.artist_card, parent, false);
+        View view = inflater.inflate(R.layout.artist_flat_card, parent, false);
         return new ArtistVH(view);
     }
 
@@ -81,6 +91,8 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
         @BindView(R.id.artist_description)
         TextView descriptionTextView;
 
+        ImageTarget imageTarget;
+
         public ArtistVH(View itemView)
         {
             super(itemView);
@@ -89,7 +101,8 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
 
         public void bind(@NonNull Artist artist)
         {
-            picasso.load(artist.getCover().getBigImageUrl()).into(posterImageView);
+            imageTarget = new ImageTarget();
+            picasso.load(artist.getCover().getBigImageUrl()).into(imageTarget);
             nameTextView.setText(artist.getName());
             descriptionTextView.setText(artist.getDescription());
             albumsTextView.setText(resources.getQuantityString(R.plurals.artistAlbums,
@@ -98,6 +111,44 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
             songsTextView.setText(resources.getQuantityString(R.plurals.artistTracks,
                                                               artist.getTracksCount(),
                                                               artist.getTracksCount()));
+        }
+
+        // Actually, I don't like Stack Overflow Driven Development...
+        private class ImageTarget implements Target {
+            final int GRADIENT_HEIGHT = 320;
+
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, LoadedFrom from) {
+                posterImageView.setImageBitmap(addGradient(bitmap));
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                posterImageView.setImageDrawable(resources.getDrawable(android.R.color.white));
+            }
+
+
+            public Bitmap addGradient(Bitmap src) {
+                int w = src.getWidth();
+                int h = src.getHeight();
+                Bitmap overlay = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(overlay);
+
+                canvas.drawBitmap(src, 0, 0, null);
+
+                Paint paint = new Paint();
+                LinearGradient shader = new LinearGradient(0,  h - GRADIENT_HEIGHT, 0, h, 0xFFFFFFFF, 0x00FFFFFF, Shader.TileMode.CLAMP);
+                paint.setShader(shader);
+                paint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));
+                canvas.drawRect(0, h - GRADIENT_HEIGHT, w, h, paint);
+
+                return overlay;
+            }
         }
     }
 }
