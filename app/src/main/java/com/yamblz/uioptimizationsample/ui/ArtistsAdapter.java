@@ -89,7 +89,11 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
 
         public void bind(@NonNull Artist artist)
         {
-            picasso.load(artist.getCover().getBigImageUrl()).into(posterImageView);
+            picasso.load(artist.getCover().getBigImageUrl())
+                    .placeholder(R.drawable.window_background)
+                    .error(R.drawable.window_background)
+                    .transform(new GradientTransformation())
+                    .into(posterImageView);
             nameTextView.setText(artist.getName());
             descriptionTextView.setText(artist.getDescription());
             albumsTextView.setText(resources.getQuantityString(R.plurals.artistAlbums,
