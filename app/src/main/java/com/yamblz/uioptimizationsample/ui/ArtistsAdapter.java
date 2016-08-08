@@ -1,6 +1,7 @@
 package com.yamblz.uioptimizationsample.ui;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -45,7 +46,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
     @Override
     public ArtistVH onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.artist_card, parent, false);
+        View view = inflater.inflate(R.layout.artist_card_new, parent, false);
         return new ArtistVH(view);
     }
 
@@ -72,8 +73,8 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
         }
 
         public void bind(@NonNull Artist artist) {
-            posterImageView.setImageDrawable(new ColorDrawable());
-            picasso.load(artist.getCover().getBigImageUrl()).into(posterImageView);
+            picasso.load(artist.getCover().getBigImageUrl()).transform(new GradientTransformation()).into(posterImageView);
+            posterImageView.setImageDrawable(new ColorDrawable(Color.WHITE));
             nameTextView.setText(artist.getName());
             descriptionTextView.setText(artist.getDescription());
             albumsTextView.setText(resources.getQuantityString(R.plurals.artistAlbums,
