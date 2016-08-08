@@ -32,13 +32,13 @@ public class ArtistsListActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artisits_list);
-        getWindow().setBackgroundDrawableResource(R.drawable.window_background);
 
         ButterKnife.bind(this);
 
+        getWindow().setBackgroundDrawable(null);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(
-                new DividerItemDecoration(this, R.drawable.divider));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
 
         showProgress();
         getSupportLoaderManager().initLoader(
