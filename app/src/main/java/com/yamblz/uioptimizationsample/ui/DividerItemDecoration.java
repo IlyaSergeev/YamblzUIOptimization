@@ -11,27 +11,23 @@ import android.view.View;
 /**
  * Created by i-sergeev on 01.07.16
  */
-public class DividerItemDecoration extends RecyclerView.ItemDecoration
-{
+public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable drawable;
 
     /**
      * Custom divider will be used
      */
-    public DividerItemDecoration(Context context, int resId)
-    {
+    public DividerItemDecoration(Context context, int resId) {
         drawable = ContextCompat.getDrawable(context, resId);
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state)
-    {
+    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         int left = parent.getPaddingLeft();
         int right = parent.getWidth() - parent.getPaddingRight();
 
         int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++)
-        {
+        for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
 
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
@@ -48,12 +44,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration
     public void getItemOffsets(Rect outRect,
                                View view,
                                RecyclerView parent,
-                               RecyclerView.State state)
-    {
+                               RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 
-        if (parent.getChildAdapterPosition(view) == 0)
-        {
+        if (parent.getChildAdapterPosition(view) == 0) {
             return;
         }
 

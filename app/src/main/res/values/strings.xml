@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UI optimization</string>
+    <string name="artist_description">Artist description</string>
+    <string name="artist_name">Artist Name</string>
 </resources>
