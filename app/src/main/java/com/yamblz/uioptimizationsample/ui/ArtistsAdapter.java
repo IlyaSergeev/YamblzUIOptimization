@@ -1,5 +1,6 @@
 package com.yamblz.uioptimizationsample.ui;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yamblz.uioptimizationsample.R;
 import com.yamblz.uioptimizationsample.model.Artist;
+import com.yamblz.uioptimizationsample.util.ShadowTransform;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,12 +33,15 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
     @NonNull
     private final Resources resources;
 
-    public ArtistsAdapter(@Nullable Artist[] artists,
-                          @NonNull Picasso picasso,
-                          @NonNull Resources resources)
+    @NonNull
+    private final ShadowTransform shadowTransform;
+
+    public ArtistsAdapter(Context context, @Nullable Artist[]artists)
     {
-        this.picasso = picasso;
-        this.resources = resources;
+        this.picasso = Picasso.with(context);
+        this.resources = context.getResources();
+        shadowTransform = new ShadowTransform(context);
+
         if (artists == null)
         {
             artists = new Artist[0];
@@ -89,7 +94,10 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
 
         public void bind(@NonNull Artist artist)
         {
-            picasso.load(artist.getCover().getBigImageUrl()).into(posterImageView);
+            picasso.load(artist.getCover().getBigImageUrl())
+                    .placeholder(android.R.color.white)
+                    .transform(shadowTransform)
+                    .into(posterImageView);
             nameTextView.setText(artist.getName());
             descriptionTextView.setText(artist.getDescription());
             albumsTextView.setText(resources.getQuantityString(R.plurals.artistAlbums,
