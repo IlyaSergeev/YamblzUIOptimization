@@ -32,7 +32,7 @@ public class ArtistsListActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artisits_list);
-        getWindow().setBackgroundDrawableResource(R.drawable.window_background);
+        getWindow().setBackgroundDrawable(null);
 
         ButterKnife.bind(this);
 
@@ -76,9 +76,7 @@ public class ArtistsListActivity extends AppCompatActivity
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
 
-        ArtistsAdapter adapter = new ArtistsAdapter(data,
-                                                    Picasso.with(this),
-                                                    getResources());
+        ArtistsAdapter adapter = new ArtistsAdapter(this, data);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
