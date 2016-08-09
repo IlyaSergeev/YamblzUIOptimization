@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yamblz.uioptimizationsample.R;
 import com.yamblz.uioptimizationsample.model.Artist;
+import com.yamblz.uioptimizationsample.util.GradientTransformation;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,7 +90,8 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
 
         public void bind(@NonNull Artist artist)
         {
-            picasso.load(artist.getCover().getBigImageUrl()).into(posterImageView);
+            picasso.load(artist.getCover().getBigImageUrl())
+                    .transform(new GradientTransformation()).into(posterImageView);
             nameTextView.setText(artist.getName());
             descriptionTextView.setText(artist.getDescription());
             albumsTextView.setText(resources.getQuantityString(R.plurals.artistAlbums,
