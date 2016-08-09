@@ -1,6 +1,14 @@
 package com.yamblz.uioptimizationsample.ui;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Shader;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -8,9 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.yamblz.uioptimizationsample.R;
 import com.yamblz.uioptimizationsample.model.Artist;
 
@@ -89,15 +100,40 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVH
 
         public void bind(@NonNull Artist artist)
         {
-            picasso.load(artist.getCover().getBigImageUrl()).into(posterImageView);
+            picasso.load(artist.getCover().getBigImageUrl())
+                    .placeholder(R.drawable.window_background)
+                    .transform(new Transformation() {
+                @Override
+                public Bitmap transform(Bitmap source) {
+                    int x = source.getWidth();
+                    int y = source.getHeight();
+
+                    Bitmap grandientBitmap = source.copy(source.getConfig(), true);
+                    Canvas canvas = new Canvas(grandientBitmap);
+                    LinearGradient grad =
+                            new LinearGradient(0, y, 0, y - 400, Color.BLACK, Color.WHITE, Shader.TileMode.CLAMP);
+                    Paint paint = new Paint();
+                    paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
+                    paint.setShader(grad);
+                    canvas.drawRect(0, y - 400, x, y, paint);
+                    source.recycle();
+                    return grandientBitmap;
+                }
+
+                @Override
+                public String key() {
+                    return "key for gradient";
+                }
+            }).into(posterImageView);
+
             nameTextView.setText(artist.getName());
             descriptionTextView.setText(artist.getDescription());
             albumsTextView.setText(resources.getQuantityString(R.plurals.artistAlbums,
-                                                               artist.getAlbumsCount(),
-                                                               artist.getAlbumsCount()));
+                    artist.getAlbumsCount(),
+                    artist.getAlbumsCount()));
             songsTextView.setText(resources.getQuantityString(R.plurals.artistTracks,
-                                                              artist.getTracksCount(),
-                                                              artist.getTracksCount()));
+                    artist.getTracksCount(),
+                    artist.getTracksCount()));
         }
     }
 }
