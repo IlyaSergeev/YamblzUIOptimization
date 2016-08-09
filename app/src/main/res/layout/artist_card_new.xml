@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/root_container"
+    tools:ignore="HardcodedText">
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/artist_poster"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            android:src="@android:color/holo_red_dark"
+            tools:ignore="ContentDescription"/>
+        <RelativeLayout
+            android:id="@+id/gradient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:padding="16dp">
+            <TextView
+                android:id="@+id/artist_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artist Name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/artist_albums"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12 альбомов"
+                android:layout_below="@id/artist_name"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/artist_songs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/artist_name"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/artist_albums"
+                android:text="123 песни"
+                android:textColor="@android:color/white"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+
+    <TextView
+        android:background="@android:color/white"
+        android:layout_below="@id/frame"
+        android:id="@+id/artist_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Artist description"
+        android:textAppearance="?android:attr/textAppearance"/>
+
+</RelativeLayout>
