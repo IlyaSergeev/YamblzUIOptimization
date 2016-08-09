@@ -13,15 +13,13 @@ import java.io.InputStreamReader;
 /**
  * Created by i-sergeev on 01.07.16
  */
-public class Api
-{
+public class Api {
     @NonNull
     private final Context context;
     private final Gson gson = new Gson();
 
 
-    public Api(@NonNull Context context)
-    {
+    public Api(@NonNull Context context) {
         this.context = context;
     }
 
